@@ -22,7 +22,8 @@ const File = new mongoose.Schema(
 //CRIANDO UM CAMPO VIRTUAL
 //NAO PODE ESTAR EM AROW FUNCTION, POIS PRECISAMOS ACESSAR O this. ELE SE REFERA A INSTANCIA. AO NOSSO REGISTRO DE ARQUIVO
 File.virtual('url').get(function () {
-  return `http://localhost:3333/files/${encodeURIComponent(this.path)}`;
+  const url = process.env.URL || 'http://localhost:3333'
+  return `${url}/files/${encodeURIComponent(this.path)}`;
 })
 
 module.exports = mongoose.model("File", File);
